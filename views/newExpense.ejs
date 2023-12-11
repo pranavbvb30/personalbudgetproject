@@ -1,0 +1,66 @@
+<%- include ('./partials/header.ejs') %>
+
+<div class="form-container">
+    <h2>Add Expenses</h2>
+
+    <% if (categoryNamesList.length > 0) { %>
+        <form action="/users/expense" method="post" id="expenseForm">
+            <!-- Initial Expense input fields -->
+            <div class="expense-input">
+                <label class="label" for="category">Select Category:</label>
+                <select class="select" name="categoryName" required>
+                    <% categoryNamesList.forEach(category => { %>
+                        <option value="<%= category %>"><%= category %></option>
+                    <% }); %>
+                </select>
+
+                <label class="label" for="amount">Amount:</label>
+                <input class="input" type="number" name="amount" required>
+
+                <!-- Add input for month -->
+                <label class="label" for="month">Month:</label>
+                <select class="select" name="month" required>
+                    <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                </select>
+            </div>
+
+            <!-- Add More button (conditionally displayed) -->
+            <button class="button" type="button" onclick="addMore()">Add More</button>
+
+            <!-- Submit button -->
+            <input class="input" type="submit" value="Submit">
+        </form>
+    <% } else { %>
+        <p class="no-categories">No categories available to add expenses.</p>
+    <% } %>
+
+    
+</div>
+<a href="/trades/new" class="button">Add Category</a>
+<%- include ('./partials/footer.ejs') %>
+
+<script>
+    function addMore() {
+        const expenseInputContainer = document.querySelector('.expense-input');
+        const clonedExpenseInput = expenseInputContainer.cloneNode(true);
+
+        // Reset values in cloned fields (optional)
+        clonedExpenseInput.querySelectorAll('input[type="number"]').forEach(input => {
+            input.value = '';
+        });
+
+        // Append the cloned expense input fields to the container
+        expenseInputContainer.parentNode.insertBefore(clonedExpenseInput, expenseInputContainer.nextSibling);
+    }
+</script>

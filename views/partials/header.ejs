@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Add this to include Bootstrap CSS and JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="/css/style.css" >
+
+    <script>
+        let inactivityTimer;
+        let popupTimer;
+    
+        function startInactivityTimer() {
+            inactivityTimer = setTimeout(showPopup, 40000); // 40 seconds
+        }
+    
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            clearTimeout(popupTimer);
+            startInactivityTimer();
+        }
+    
+        function showPopup() {
+            $('#myModal').modal('show');
+            popupTimer = setTimeout(logoutUser, 20000); // 20 seconds after the modal is shown
+        }
+    
+        function continueSession() {
+            $('#myModal').modal('hide');
+            resetInactivityTimer();
+        }
+    
+        function logoutUser() {
+            window.location.href = '/users/logout';
+        }
+    
+        document.addEventListener('DOMContentLoaded', startInactivityTimer);
+        document.addEventListener('mousemove', resetInactivityTimer);
+        document.addEventListener('keydown', resetInactivityTimer);
+    </script>
+
+    <title>Personal Budget App</title>
+</head>
+<body>
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Session Timeout Warning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You will be logged out in 20 seconds due to inactivity.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="continueSession()">Continue Session</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class = "header">
+        <ul class = "logo">
+            <li><a href="/">Personal Budget App</a></li>
+            
+        </ul>
+        
+        <div class = "user-nav">
+            <ul>
+                
+                <%if(!user){%>
+                    <li><a href='/users/new'>Sign Up</a></li>
+                    <li><a href='/users/login'>Login</a></li>
+                
+                <%}else{%>
+                    <li><a href="/trades/new">Categories</a></li>
+                    <li><a href="/users/expense">Expenses</a></li>
+                    <li><a href='/users/profile'>Dashboard</a></li>
+                    <li><a href='/users/logout'>Logout</a></li>
+                <%}%>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <% if(errorMessages.length > 0) {%>
+        <% errorMessages.forEach(message=>{%>
+            <div class='error'>
+                <%=message%>
+            </div>
+            <%});%>
+                <%}%>
+    
+                    <% if(successMessages.length > 0) {%>
+    
+                        <% successMessages.forEach(message=>{%>
+                            <div class='success'>
+                                <%=message%>
+                            </div>
+                            <%});%>
+                                <%}%>

@@ -1,0 +1,196 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="homepage-body">
+
+    <h2>Your Dashboard</h2>
+    <a href="/trades/new">
+        <button>Add Category</button>
+    </a>
+    <a href="/users/expense">
+        <button>Add Expenses</button>
+    </a>
+    <div>
+
+        <% if (categories.length > 0) { %>
+        <h4 style="margin-top:40px">Categories:</h4>
+        <table id="categoryTable">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Budget</th>
+                    <th>Expense</th>
+                    <th id="monthHeader">Month</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% categories[0].forEach(category => { %>
+                <tr class="categoryRow">
+                    <td><%= category.name %></td>
+                    <td><%= category.budget %></td>
+                    <td><%= category.expense %></td>
+                    <td><%= category.month %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <label class="label" for="selectedMonth">Select Month:</label>
+        <select id="selectedMonth" class="select" onchange="updateAllCharts()">
+            <option value="All">All Months</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+        <div id="budgetPieChart" style="width:100%;max-width:700px;height:400px;"></div>
+        <div id="categoryBudget" style="display: none;"><%- JSON.stringify(categories[0]) %></div>
+
+        <div id="budgetExpenseChart" style="width:100%;max-width:700px;height:400px;"></div>
+        <div id="categoryData" style="display: none;"><%- JSON.stringify(categories[0]) %></div>
+
+
+        <script>
+            function updateAllCharts() {
+                updateCharts();
+                updateGraphs();
+                updateLineChart(); // Added line chart update
+            }
+
+
+            function updateCharts() {
+                // Existing pie chart update code
+                const selectedMonth = document.getElementById('selectedMonth').value;
+                const categoryData = JSON.parse(document.getElementById('categoryBudget').textContent);
+
+                // Filter category data based on the selected month
+                const filteredCategoryData = categoryData.filter(category => category.month === selectedMonth);
+
+                // Extract category names and budgets for the pie chart
+                const categoryNamesPie = filteredCategoryData.map(category => category.name);
+                const categoryBudgetsPie = filteredCategoryData.map(category => category.budget);
+
+                // Plotly data and layout for the pie chart
+                const dataPie = [{
+                    labels: categoryNamesPie,
+                    values: categoryBudgetsPie,
+                    type: 'pie',
+                }];
+
+                const layoutPie = {
+                    title: `Budget Distribution for ${selectedMonth}`,
+                };
+
+                // Plot the pie chart
+                Plotly.newPlot('budgetPieChart', dataPie, layoutPie);
+            }
+
+            function updateGraphs() {
+                // Existing bar graph update code
+                const selectedMonth = document.getElementById('selectedMonth').value;
+                const categoryData = JSON.parse(document.getElementById('categoryData').textContent);
+
+                // Filter category data based on the selected month
+                const filteredCategoryData = categoryData.filter(category => category.month === selectedMonth);
+
+                // Extract category names, budgets, and expenses
+                const categoryNames = filteredCategoryData.map(category => category.name);
+                const categoryBudgets = filteredCategoryData.map(category => category.budget);
+                const categoryExpenses = filteredCategoryData.map(category => category.expense);
+
+                // Plotly data and layout for budget and expense bar graph
+                const data = [{
+                        x: categoryNames,
+                        y: categoryBudgets,
+                        type: 'bar',
+                        name: 'Budget',
+                    },
+                    {
+                        x: categoryNames,
+                        y: categoryExpenses,
+                        type: 'bar',
+                        name: 'Expense',
+                    },
+                ];
+
+                const layout = {
+                    title: `Budget and Expense Comparison (${selectedMonth})`,
+                    barmode: 'group',
+                };
+
+                // Plot the chart
+                Plotly.newPlot('budgetExpenseChart', data, layout);
+            }
+
+            function updateLineChart() {
+                const selectedMonth = document.getElementById('selectedMonth').value;
+                const categoryData = JSON.parse(document.getElementById('categoryData').textContent);
+
+                // Filter category data based on the selected month
+                const filteredCategoryData = categoryData.filter(category => category.month === selectedMonth);
+
+                // Extract category names and a random numeric dataset
+                const categoryNames = filteredCategoryData.map(category => category.name);
+                const numericData = Array.from({ length: categoryNames.length }, () => Math.floor(Math.random() * 100));
+
+                const ctxLine = document.getElementById('lineChart').getContext('2d');
+
+                if (window.myLineChart) {
+                    window.myLineChart.destroy();
+                }
+
+                window.myLineChart = new Chart(ctxLine, {
+                    type: 'line',
+                    data: {
+                        labels: categoryNames,
+                        datasets: [{
+                            label: `Line Chart (${selectedMonth})`,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                            fill: false,
+                            data: numericData,
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'category',
+                                labels: categoryNames,
+                            },
+                            y: {
+                                beginAtZero: true,
+                            }
+                        }
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                updateAllCharts(); // Initialize charts on page load
+            });
+        </script>
+
+        <% } else { %>
+        <p style="margin: 10px;">No categories available.</p>
+        <% } %>
+    </div>
+
+    <div>
+        <label class="label" for="lineChartInput">Enter Line Chart Data (comma-separated values):</label>
+        <input type="text" id="lineChartInput" class="input" placeholder="e.g., 10,30,45,25,50">
+        <button onclick="updateLineChart()">Update Line Chart</button>
+        <div id="lineChart" style="width:100%;max-width:700px;height:400px;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</div>
+<%- include('../partials/footer.ejs') %>

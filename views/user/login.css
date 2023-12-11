@@ -1,0 +1,62 @@
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjusted height for better centering */
+}
+.login-form-container {
+    max-width: 400px;
+    margin: 50px auto; /* Adjusted margin for better alignment */
+    padding: 20px;
+    background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Apply transitions to form elements */
+.login-form .form-group {
+    margin-bottom: 20px;
+    transition: margin-bottom 0.3s ease-in-out;
+}
+
+.login-form .label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333; /* Set label color */
+}
+
+.login-form .input1 {
+    width: 100%;
+    padding: 10px; /* Increased padding for better appearance */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.login-form .input1:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); /* Add box-shadow on focus */
+}
+
+.login-form .button {
+    padding: 12px 24px; /* Adjusted padding for better appearance */
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-form .button:hover {
+    background-color: #1565C0;
+}
+
+/* Add a subtle hover effect to the form-container */
+.login-form-container:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}

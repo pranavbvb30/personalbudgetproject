@@ -1,0 +1,237 @@
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; 
+    color: #333333; 
+}
+
+
+.header {
+    background-color: #f0ae43; 
+    color: #ffffff; 
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    list-style-type: none;
+}
+
+.logo li {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #000000; 
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-nav ul {
+    list-style-type: none;
+}
+
+.user-nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.user-nav ul li a {
+    text-decoration: none;
+    color: #000000; 
+    font-weight: bold;
+}
+
+
+.message-container {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.error, .success {
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.error {
+    background-color: #e74c3c; 
+    color: #ffffff; 
+}
+
+.success {
+    background-color: #27ae60; 
+    color: #ffffff; 
+}
+
+
+.form-container {
+    margin: 50px auto;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333333; 
+}
+
+
+.label {
+    display: block;
+    margin-bottom: 15px;
+    color: #333333; 
+}
+
+
+.input, .select {
+    width: calc(100% - 16px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.button, .input[type="submit"] {
+    background-color: #f0ae43; 
+    color: #ffffff; 
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover, .input[type="submit"]:hover {
+    background-color: #218838; 
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+
+.homepage-body {
+    margin: 20px auto;
+    max-width: 900px;
+    background-color: #ffffff;
+    background-image: url('bg.png');
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.homepage-body a {
+    text-decoration: none;
+    color: #ffffff; 
+}
+
+.homepage-body h3 {
+    margin-top: 20px;
+    color: #333333;  
+}
+
+.homepage-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.homepage-body ul li {
+    margin-bottom: 10px;
+}
+
+
+#myPlot, #budgetExpenseChart {
+    width: 100%;
+    max-width: 700px;
+}
+
+*
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+    margin: 50px auto;
+    width: 80%;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #f0ae43; 
+    color: #ffffff; 
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+td {
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+body {
+    background-image: url('./../../views/user/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

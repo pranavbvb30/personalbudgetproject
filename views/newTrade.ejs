@@ -1,0 +1,64 @@
+<%- include ('./partials/header.ejs') %>
+
+<div class="newtrade-body">
+    
+    <div class="form-container">
+        <h2>Add Categories</h2>
+
+        <form id="categoryForm" action='/trades' method='POST'>
+            <div id="categoriesContainer">
+                <!-- Display one category input field by default -->
+                <div class="category-entry">
+                    <label for="categoryName">Category Name:</label>
+                    <input type="text" name="categories[]" required>
+                    <label for="categoryBudget">Budget:</label>
+                    <input type="text" name="categories[]" required>
+        
+                    <!-- Add a dropdown menu for the month -->
+                    <label for="categoryMonth">Month:</label>
+                    <select name="categories[]" required>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                        <!-- Add options for all 12 months -->
+                    </select>
+        
+                    <br>
+                </div>
+            </div>
+        
+            <button type="button" onclick="addCategory()">Add More Categories</button>
+            <input class="input" type="submit" value="Submit">
+        </form>
+        
+        <script>
+            function addCategory() {
+                const categoriesContainer = document.getElementById('categoriesContainer');
+                const existingCategory = document.querySelector('.category-entry');
+        
+                // Clone the existing category input fields
+                const clonedCategory = existingCategory.cloneNode(true);
+        
+                // Reset the values in the cloned fields (optional)
+                clonedCategory.querySelectorAll('input[type="text"]').forEach(input => {
+                    input.value = '';
+                });
+        
+                // Append the cloned category input fields to the container
+                categoriesContainer.appendChild(clonedCategory);
+            }
+        </script>
+        
+    </div>
+</div>
+
+<%- include ('./partials/footer.ejs') %>
