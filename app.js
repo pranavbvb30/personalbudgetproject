@@ -18,7 +18,7 @@ const app = express();
 
 //configure app
 let port = 3001;
-let host = 'localhost';
+let host = '104.236.70.90';
 app.set('view engine','ejs');
 
 
@@ -36,7 +36,7 @@ app.use(methodOverride('_method'));
 // })
 
 
-mongoose.connect('mongodb://localhost:27017/personal_budget_app1',{useUnifiedTopology: true,useNewUrlParser: true,useCreateIndex: true})
+mongoose.connect(''mongodb+srv://doadmin:5j1864x9d3toDPH0@db-mongodb-nyc3-33284-a4283b62.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',{useUnifiedTopology: true,useNewUrlParser: true,useCreateIndex: true})
 .then(()=>{
     //start the server
     app.listen(port, host, ()=>{
@@ -53,8 +53,8 @@ app.use(
         secret: "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: 'mongodb://localhost:27017/personal_budget_app1'}),
-        cookie: {maxAge: 60*60*1000}
+        store: new MongoStore({mongoUrl: ''mongodb+srv://doadmin:5j1864x9d3toDPH0@db-mongodb-nyc3-33284-a4283b62.mongo.ondigitalocean.com/admin?tls=true&authSource=admin'}),
+        cookie: {maxAge: 1*60*1000}
         })
 );
 app.use(flash());
