@@ -53,7 +53,7 @@ app.use(
         secret: "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: ''mongodb+srv://doadmin:5j1864x9d3toDPH0@db-mongodb-nyc3-33284-a4283b62.mongo.ondigitalocean.com/admin?tls=true&authSource=admin'}),
+        store: new MongoStore({mongoUrl: 'mongodb+srv://doadmin:5j1864x9d3toDPH0@db-mongodb-nyc3-33284-a4283b62.mongo.ondigitalocean.com/admin?tls=true&authSource=admin'}),
         cookie: {maxAge: 1*60*1000}
         })
 );
